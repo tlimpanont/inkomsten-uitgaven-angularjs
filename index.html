@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en" ng-app="incomes_expenses">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<style type="text/css">
+		.positive { color: green;}
+		.negative {color: red;} 
+	</style>
+</head>
+<body ng-controller="mainCtrl">
+    <div class="container">
+    	<div class="row col-xs-6" >
+			<table class="table" >
+		    	<thead>
+		    		<th>Inkomsten &nbsp; <button class="btn btn-default " ng-click="getNewIncomeDialog()"><span class="glyphicon glyphicon-plus-sign"></span></button></th>  	
+		    		<th></th>
+		    	</thead>
+		    	<tbody>
+					<tr ng-repeat="income in incomes">
+		    			<td>
+		    				{{income.label}}
+		    			</td>
+		    			<td>
+		    				&euro; {{income.amount}}
+		    			</td>
+					</tr>
+					<tr>
+						<td><strong>Totaal</strong></td>
+						<td><strong>&euro; {{total_incomes()}}</strong></td>
+					</tr>
+		    	</tbody>
+		    </table>
+    	</div>
+
+    	<div class="row col-xs-6" >
+			<table class="table" >
+		    	<thead>
+		    		<th>Uitgaven  &nbsp; <button class="btn btn-default " ng-click="getNewExpenseDialog()"><span class="glyphicon glyphicon-plus-sign"></span></button></th>  	
+		    		<th></th>
+		    	</thead>
+		    	<tbody>
+					<tr ng-repeat="expense in expenses">
+		    			<td>
+		    				{{expense.label}}
+		    			</td>
+		    			<td>
+		    				&euro; {{expense.amount}}
+		    			</td>
+					</tr>
+					<tr>
+						<td><strong>Totaal</strong></td>
+						<td><strong>&euro; {{total_expenses()}}</strong></td>
+					</tr>
+		    	</tbody>
+		    </table>
+    	</div>
+
+    	<div class="row col-xs-8  col-xs-offset-4" >
+    		<h4 ng-class="{'negative': (month_balance() < 0), 'positive': (month_balance() > 0)  }">
+    			<span>maandsaldo</span>
+    			<span style="float: right;">&euro; {{ month_balance() }}</span>
+    		</h4>
+    	</div>
+		
+		<div financial-modal modal-id="incomeDialog" title="Voeg een nieuwe inkomsten post toe" model="Income" collection="incomes"></div>
+		<div financial-modal modal-id="expenseDialog" title="Voeg een nieuwe uitgaven post toe" model="Expense" collection="expenses"></div>
+    	
+    </div>
+	<script type="text/javascript" src="js/libs/jquery-1.9.1.js"></script>
+	<script type="text/javascript" src="js/libs/angular.min.js"></script>
+	<script type="text/javascript" src="js/libs/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/controllers.js"></script>
+	<script type="text/javascript" src="js/services.js"></script>
+	<script type="text/javascript" src="js/directives.js"></script>
+</body>
+</html>
