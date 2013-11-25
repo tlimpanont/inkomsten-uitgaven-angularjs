@@ -13,6 +13,10 @@ app.directive("financialModal", function( Income, Expense) {
 				item.label = $scope.label.toString(); 
 				item.amount =  Number($scope.amount);
 				$scope.collection.push(item);
+				$scope.resetForm();
+			}
+			
+			$scope.resetForm = function() {
 				$scope.label = "";
 				$scope.amount = "";
 			}
