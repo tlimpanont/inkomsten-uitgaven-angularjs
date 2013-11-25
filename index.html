@@ -23,12 +23,12 @@
 		    				{{income.label}}
 		    			</td>
 		    			<td>
-		    				&euro; {{income.amount}}
+		    				{{income.amount | currency }}
 		    			</td>
 					</tr>
 					<tr>
 						<td><strong>Totaal</strong></td>
-						<td><strong>&euro; {{total_incomes()}}</strong></td>
+						<td><strong>{{total_incomes() | currency}}</strong></td>
 					</tr>
 		    	</tbody>
 		    </table>
@@ -46,12 +46,12 @@
 		    				{{expense.label}}
 		    			</td>
 		    			<td>
-		    				&euro; {{expense.amount}}
+		    				{{expense.amount | currency}}
 		    			</td>
 					</tr>
 					<tr>
 						<td><strong>Totaal</strong></td>
-						<td><strong>&euro; {{total_expenses()}}</strong></td>
+						<td><strong>{{total_expenses() | currency}}</strong></td>
 					</tr>
 		    	</tbody>
 		    </table>
@@ -60,7 +60,7 @@
     	<div class="row col-xs-8  col-xs-offset-4" >
     		<h4 ng-class="{'negative': (month_balance() < 0), 'positive': (month_balance() > 0)  }">
     			<span>maandsaldo</span>
-    			<span style="float: right;">&euro; {{ month_balance() }}</span>
+    			<span style="float: right;">{{ month_balance() | currency }}</span>
     		</h4>
     	</div>
 		
@@ -70,6 +70,7 @@
     </div>
 	<script type="text/javascript" src="js/libs/jquery-1.9.1.js"></script>
 	<script type="text/javascript" src="js/libs/angular.min.js"></script>
+	<script type="text/javascript" src="js/libs/angular-locale_nl.js"></script>
 	<script type="text/javascript" src="js/libs/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript" src="js/controllers.js"></script>

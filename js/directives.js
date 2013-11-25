@@ -25,7 +25,7 @@ app.directive('onlyNumbers',  function(){
 		link: function($scope, element, attrs) {
 			angular.element(element).on("keypress", function(e) {
 				var character = (String.fromCharCode(e.which));
-				if(!/\d+/g.test(character))
+				if(!/[\d+|\.]/g.test(character))
 					return false;
 			});
 		}
