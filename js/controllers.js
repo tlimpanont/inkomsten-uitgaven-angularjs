@@ -1,19 +1,11 @@
-app.controller("mainCtrl", function($scope, Income, Expense, calculator) {
-	$scope.incomes = [];
-	$scope.expenses = [];
-
-	$scope.addIncome = function(label, amount) {
-		var income = new Income();
-		income.label = label; 
-		income.amount = amount;
-		$scope.incomes.push(income);
-	}
-	$scope.addExpense = function(label, amount) {
-		var expense = new Expense();
-		expense.label = label; 
-		expense.amount = amount;
-		$scope.expenses.push(expense);
-	}
+app.controller("mainCtrl", function($scope, Income, Expense, calculator, $http) {
+	$scope.incomes = []; $scope.expenses = [];
+	$http.get('api/incomes').success(function(data) {
+		$scope.incomes = data;
+	});
+	$http.get('api/expenses').success(function(data) {
+		$scope.expenses = data;
+	});
 
 	$scope.getNewIncomeDialog = function() {
 		$('#incomeDialog').modal({
@@ -27,16 +19,23 @@ app.controller("mainCtrl", function($scope, Income, Expense, calculator) {
 		});
 	}
 
-	// // add all incomes
-	// $scope.addIncome("salaris", 2200);
-	// $scope.addIncome("zorgtoeslag", 60);
+	$scope.deleteIncome = function(income) {
+		$http({
+			method: "DELETE",
+			url: "api/incomes/"+income.id
+		}).success(function(data) {
+			$scope.incomes = data;
+		});
+	}
 
-	// // add all expenses
-	// $scope.addExpense("boodschappen", 230);	
-	// $scope.addExpense("verzekering", 80);
-	// $scope.addExpense("telefoon", 30);
-	// $scope.addExpense("hypotheek", 400);
-	// $scope.addExpense("gas/water/elektriciteit", 120);
+	$scope.deleteExpense = function(expense) {
+		$http({
+			method: "DELETE",
+			url: "api/expenses/"+expense.id
+		}).success(function(data) {
+			$scope.expenses = data;
+		});
+	}
 
 	$scope.total_incomes = function() {
 		 return calculator.sum($scope.incomes);
@@ -48,6 +47,6 @@ app.controller("mainCtrl", function($scope, Income, Expense, calculator) {
 
 	$scope.month_balance = function()
 	{
-		return calculator.balance(calculator.sum($scope.incomes), calculator.sum($scope.expenses));
+		return calculator.balance($scope.total_incomes(), $scope.total_expenses());
 	}
 });

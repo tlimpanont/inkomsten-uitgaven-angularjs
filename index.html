@@ -23,7 +23,7 @@
 		    				{{income.label}}
 		    			</td>
 		    			<td>
-		    				{{income.amount | currency }}
+		    				{{income.amount | currency }} <a style="color: red;" ng-click="deleteIncome(income)" href=""> X</a>
 		    			</td>
 					</tr>
 					<tr>
@@ -46,7 +46,7 @@
 		    				{{expense.label}}
 		    			</td>
 		    			<td>
-		    				{{expense.amount | currency}}
+		    				{{expense.amount | currency}} <a style="color: red;" ng-click="deleteExpense(expense)" href=""> X</a>
 		    			</td>
 					</tr>
 					<tr>

@@ -18,6 +18,7 @@ app.factory("Income", function () {
 app.factory("Expense", function () {
 	return Expense;
 });
+
 app.factory("calculator", function() {
 	return {
 		sum: function(financial_items) {
@@ -31,4 +32,30 @@ app.factory("calculator", function() {
 			return (total_incomes - total_expenses);
 		}
 	}
-})
+});
+
+app.service("DataProvider", function($http, $q) {
+	return {
+		getIncomeList: function() {
+			var defer = $q.defer();
+			$http.get('api/incomes').success(function(data) {
+				defer.resolve(data);
+			});
+			return defer.promise;
+		},
+		getExpenseList: function() {
+			var defer = $q.defer();
+			$http.get('api/expenses').success(function(data) {
+				defer.resolve(data);
+			});
+			return defer.promise;
+		},
+		addIncome: function() {
+
+		},
+		addExpense: function() {
+
+		}
+	}
+});
+
